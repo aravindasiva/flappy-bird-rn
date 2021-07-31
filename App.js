@@ -7,16 +7,27 @@ import Physics from './physics';
 
 export default function App() {
   const [running, setRunning] = useState(false)
+  const [gameEngine, setGameEngine] = useState(null)
+
   useEffect(() => {
     setRunning(true)
   }, [])
   return (
-    <View style={{flex: 1}}>
-      <GameEngine 
+    <View style={{ flex: 1 }}>
+      <GameEngine
+        ref={(ref) => { setGameEngine(ref) }}
         systems={[Physics]}
         entities={entities()}
-        running = {running}
-        style={{position: 'absolute', top: 0, bottom: 0, right: 0, left:0}}>
+        running={running}
+        style={{ position: 'absolute', top: 0, bottom: 0, right: 0, left: 0 }}
+        onEvent={(e) => {
+          switch (e.type) {
+            case 'game_over':
+              setRunning(false)
+              gameEngine.stop()
+          }
+        }}
+        >
 
       </GameEngine>
       <StatusBar style="auto" hidden={true} />
@@ -24,11 +35,11 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: "#fff",
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+// });
