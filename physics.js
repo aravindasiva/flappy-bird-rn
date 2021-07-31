@@ -26,6 +26,8 @@ const Physics = (entities, {touches, time, dispatch}) => {
         }
 
         if (entities[`ObstacleTop${index}`].body.bounds.max.x <= 0){
+            entities[`ObstacleTop${index}`].point = false
+
             const pipeSizPos = getPipeSizePosPair(windowWidth * 0.9)   
             
             Matter.Body.setPosition(entities[`ObstacleTop${index}`].body, pipeSizPos.pipeTop.pos)
