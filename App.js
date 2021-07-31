@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { GameEngine } from "react-native-game-engine";
 import entities from "./entities";
 import Physics from './physics';
@@ -8,12 +8,14 @@ import Physics from './physics';
 export default function App() {
   const [running, setRunning] = useState(false)
   const [gameEngine, setGameEngine] = useState(null)
+  const [currentPoints, setCurrentPoints] = useState(0)
 
   useEffect(() => {
-    setRunning(true)
+    setRunning(false)
   }, [])
   return (
     <View style={{ flex: 1 }}>
+      <Text style={{ textAlign: 'center', fontSize: 50, fontWeight: 'bold', margin: 50 }}>{currentPoints}</Text>
       <GameEngine
         ref={(ref) => { setGameEngine(ref) }}
         systems={[Physics]}
@@ -25,21 +27,31 @@ export default function App() {
             case 'game_over':
               setRunning(false)
               gameEngine.stop()
+              break;
+            case 'new_point':
+              setCurrentPoints(currentPoints+1)
+              break;
           }
         }}
-        >
+      >
 
+        <StatusBar style="auto" hidden={true} />
       </GameEngine>
-      <StatusBar style="auto" hidden={true} />
+
+      {!running ? 
+      <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+        <TouchableOpacity style={{backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10}}
+          onPress={() => {
+            setCurrentPoints(0)
+            setRunning(true)
+            gameEngine.swap(entities())
+          }}
+        >
+          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 30}}>
+            Start Game
+          </Text>
+        </TouchableOpacity>
+      </View> : null}
     </View>
   );
 }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-// });
