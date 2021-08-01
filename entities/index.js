@@ -31,7 +31,8 @@ export default (restart) => {
     ObstacleTop2: Obstacle(world, 'ObstacleTop2', 'red', getPipeSizePosB.pipeTop.pos, getPipeSizePosB.pipeTop.size ),
     ObstacleBottom2: Obstacle(world, 'ObstacleBottom2', 'red', getPipeSizePosB.pipeBottom.pos, getPipeSizePosB.pipeBottom.size ),
 
-    Floor: Floor(world, 'green', {x: windowWidth/2, y: windowHeight}, {height: 90, width: windowWidth}),
+    Floor1: Floor(world, 'Floor', 'green', getPipeSizePosA.floorBottom.pos, getPipeSizePosA.floorBottom.size),
+
     
     Bird: Bird(world, 'green', {x: 50, y: 300}, {height: 40, width:40})
   }

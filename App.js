@@ -29,7 +29,7 @@ export default function App() {
               gameEngine.stop()
               break;
             case 'new_point':
-              setCurrentPoints(currentPoints+1)
+              setCurrentPoints(currentPoints + 1)
               break;
           }
         }}
@@ -38,20 +38,20 @@ export default function App() {
         <StatusBar style="auto" hidden={true} />
       </GameEngine>
 
-      {!running ? 
-      <View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-        <TouchableOpacity style={{backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10}}
-          onPress={() => {
-            setCurrentPoints(0)
-            setRunning(true)
-            gameEngine.swap(entities())
-          }}
-        >
-          <Text style={{fontWeight: 'bold', color: 'white', fontSize: 30}}>
-            Start Game
-          </Text>
-        </TouchableOpacity>
-      </View> : null}
+      {!running ?
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <TouchableOpacity style={{ backgroundColor: 'black', paddingHorizontal: 30, paddingVertical: 10 }}
+            onPress={() => {
+              setCurrentPoints(0)
+              setRunning(true)
+              gameEngine.swap(entities())
+            }}
+          >
+            <Text style={{ fontWeight: 'bold', color: 'white', fontSize: 30 }}>
+              Start Game
+            </Text>
+          </TouchableOpacity>
+        </View> : null}
     </View>
   );
 }
